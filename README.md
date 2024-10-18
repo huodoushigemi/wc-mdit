@@ -1,4 +1,4 @@
-# wc-hljs
+# wc-mdit
 
 A markdown-to-html web component.
 
@@ -7,7 +7,7 @@ A markdown-to-html web component.
 - ### npm
 
 ```shell
-npm i wc-mdit markdown-it solid-js solid-element
+npm i wc-mdit
 ```
 
 - ### scripts
