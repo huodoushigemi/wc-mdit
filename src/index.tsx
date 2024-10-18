@@ -14,15 +14,14 @@ const props = {
   bodyStyle: ''
 }
 
-export const HljsElement = customElement('wc-mdit', props, (props, { element }) => {
-  console.log(props);
-  
+export const MditElement = customElement('wc-mdit', props, (props, { element }) => {
   const css = memoAsync(() => props.theme && import(`./theme/${props.theme}.css?raw`).then(e => e.default))
   const srcContent = memoAsync(() => props.src && fetch(props.src).then(e => e.text()))
 
   if (props.noShadow) noShadowDOM()
 
   const md = createMemo(() => MarkdownIt(props.options))
+  
   return (
     <>
       <style>

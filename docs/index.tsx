@@ -1,10 +1,11 @@
 /* @refresh reload */
-import { render } from 'solid-js/web';
+import { createSignal } from 'solid-js'
+import { render } from 'solid-js/web'
 
 import '../src'
-import { createSignal } from 'solid-js';
+// import '../dist/wc-mdit.es'
 
-const root = document.getElementById('root');
+const root = document.getElementById('root')
 
 render(() => {
   const [theme1, theme2] = createSignal('github-markdown')
@@ -17,6 +18,7 @@ render(() => {
       <option value='vuepress'>vuepress</option>
       <option value='juejin'>juejin</option>
       <option value='juejin-yu'>juejin-yu</option>
+      <option value='juejin-devui-blue'>juejin-devui-blue</option>
       <option value='juejin-devui-blue'>juejin-devui-blue</option>
     </select>
     <wc-mdit
