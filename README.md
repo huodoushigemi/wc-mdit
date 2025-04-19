@@ -14,7 +14,7 @@ npm i wc-mdit
   
 ```html
 <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/wc-mdit.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/wc-mdit/dist/wc-mdit.umd.js"></script>
 ```
 
 ## 🚀 Example

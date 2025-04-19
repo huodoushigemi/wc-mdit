@@ -14,9 +14,11 @@ const props = {
   bodyStyle: ''
 }
 
+const cache = {} as Record<string, string>
+
 export const MditElement = customElement('wc-mdit', props, (props, { element }) => {
-  const css = memoAsync(() => props.theme && import(`./theme/${props.theme}.css?raw`).then(e => e.default))
-  const srcContent = memoAsync(() => props.src && fetch(props.src).then(e => e.text()))
+  const css = memoAsync(() => (k => cache[k] ?? import(`./theme/${k}.css?raw`).then(e => cache[k] = e.default))(props.theme))
+  const fetched = memoAsync(() => props.src && fetch(props.src).then(e => e.text()))
 
   if (props.noShadow) noShadowDOM()
 
@@ -27,7 +29,7 @@ export const MditElement = customElement('wc-mdit', props, (props, { element }) 
       <style>
         {`${css()} ${props.css} :host {display: block; overflow: hidden}`}
       </style>
-      <div class={`markdown-body ${props.bodyClass}`} style={props.bodyStyle} innerHTML={md().render(srcContent() || props.content)} />
+      <div class={`markdown-body ${props.bodyClass}`} part='body' style={props.bodyStyle} innerHTML={md().render(fetched() || props.content)} />
     </>
   )
 })
@@ -36,12 +38,10 @@ function memoAsync(fn) {
   const ret = createSignal('')
   let count = 0
   createEffect(async () => {
-    count++
-    const _count = count
-    const val = await fn()
-    if (_count == count) {
-      ret[1](val)
-    }
+    const _count = ++count
+    let val = fn()
+    if (val instanceof Promise) val = await val
+    if (_count == count) ret[1](val)
   })
   return ret[0]
 }
