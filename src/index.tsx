@@ -5,13 +5,14 @@ import MarkdownIt from 'markdown-it'
 
 const props = {
   src: '',
-  content: '',
-  options: { value: {}, attribute: 'options', norify: true, reflect: true, parse: true },
+  content: { value: '', reflect: false },
+  options: { value: {}, attribute: 'options', notify: true, reflect: false, parse: true },
   theme: '',
-  css: '',
+  css: { value: '', reflect: false },
   noShadow: false,
   bodyClass: '',
-  bodyStyle: ''
+  bodyStyle: '',
+  md: null,
 }
 
 const cache = {} as Record<string, string>
@@ -22,7 +23,7 @@ export const MditElement = customElement('wc-mdit', props, (props, { element }) 
 
   if (props.noShadow) noShadowDOM()
 
-  const md = createMemo(() => MarkdownIt(props.options))
+  const md = createMemo(() => props.md ?? MarkdownIt(props.options))
   
   return (
     <>
