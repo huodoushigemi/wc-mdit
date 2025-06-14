@@ -18,7 +18,7 @@ const props = {
 const cache = {} as Record<string, string>
 
 export const MditElement = customElement('wc-mdit', props, (props, { element }) => {
-  const css = memoAsync(() => (k => cache[k] ?? import(`./theme/${k}.css?raw`).then(e => cache[k] = e.default))(props.theme))
+  const css = memoAsync(() => (k => cache[k] ?? loadTheme(k).then(e => cache[k] = e))(props.theme))
   const fetched = memoAsync(() => props.src && fetch(props.src).then(e => e.text()))
 
   if (props.noShadow) noShadowDOM()
@@ -45,4 +45,14 @@ function memoAsync(fn) {
     if (_count == count) ret[1](val)
   })
   return ret[0]
+}
+
+// 
+
+const url = document.currentScript?.src || import.meta.url
+
+function loadTheme(theem: string) {
+  const dir = url.split('/').slice(0, -1).join('/')
+  const src = `${dir}/theme/${theem}.css?raw`
+  return fetch(src, { method: 'GET' }).then(e => e.text())
 }

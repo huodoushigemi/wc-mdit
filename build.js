@@ -1,5 +1,6 @@
 import { build } from 'vite'
 import solid from 'vite-plugin-solid'
+import { copy } from 'fs-extra'
 
 await build({
   build: {
@@ -33,3 +34,5 @@ await build({
   },
   plugins: [solid()],
 })
+
+await copy('src/theme', 'dist/theme')

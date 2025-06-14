@@ -1,13 +1,15 @@
 {
   "name": "wc-mdit",
   "private": false,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "main": "dist/wc-mdit.es.js",
   "module": "dist/wc-mdit.es.js",
   "unpkg": "dist/wc-mdit.umd.js",
   "jsdelivr": "dist/wc-mdit.umd.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
   "description": "web-component、markdown-it、solid-js",
   "repository": {
@@ -26,6 +28,7 @@
     "solid-js": "*"
   },
   "devDependencies": {
+    "fs-extra": "^11.3.0",
     "typescript": "^5.5.3",
     "vite": "^5.4.8",
     "vite-plugin-solid": "^2.10.2"
